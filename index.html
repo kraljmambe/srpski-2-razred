@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="sr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1fb5a8">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="ikona-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Српски 2">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<title>Српски језик – 2. разред</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fdf6e9;--kart:#fffdf8;--tirk:#1fb5a8;--tirk2:#138a80;--tekst:#2b2b3a;--siv:#7a7a8a;--ok:#2fb35a;--lose:#e5484d;--zut:#ffc93c;--ljub:#7b5cd6;--narand:#ff8a3d}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tekst);font-family:Nunito,"Segoe UI",sans-serif;font-weight:600;min-height:100vh}
+.okvir{max-width:760px;margin:0 auto;padding:16px;padding-top:max(16px,env(safe-area-inset-top));padding-bottom:max(16px,env(safe-area-inset-bottom))}
+button{touch-action:manipulation;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none}
+.instal{background:#fff4d1;border:2px dashed var(--zut);border-radius:16px;padding:12px 14px;margin-top:16px;text-align:left;font-size:1rem}
+.instal b{color:#8a6400}
+.instal ol{margin:.4em 0 0;padding-left:1.3em}
+.kartica{background:var(--kart);border:3px solid var(--tirk);border-radius:22px;padding:22px;box-shadow:0 6px 0 rgba(19,138,128,.25);margin-bottom:16px}
+h1{font-weight:900;font-size:2rem;margin:.2em 0;color:var(--tirk2);text-align:center}
+h2{font-weight:900;color:var(--tirk2);margin:.3em 0 .6em}
+.centar{text-align:center}
+.dugme{font:inherit;font-weight:800;font-size:1.15rem;border:none;border-radius:16px;padding:14px 22px;cursor:pointer;background:var(--tirk);color:#fff;box-shadow:0 4px 0 var(--tirk2);transition:transform .08s}
+.dugme:active{transform:translateY(3px);box-shadow:0 1px 0 var(--tirk2)}
+.dugme.zut{background:var(--zut);color:#4a3600;box-shadow:0 4px 0 #c99a1c}
+.dugme.ljub{background:var(--ljub);box-shadow:0 4px 0 #563bb0}
+.dugme.bel{background:#fff;color:var(--tirk2);border:3px solid var(--tirk);box-shadow:0 4px 0 var(--tirk2)}
+.dugme:disabled{opacity:.5;cursor:default}
+.meni{display:grid;gap:14px;margin-top:18px}
+.meni .dugme{font-size:1.3rem;padding:18px;display:flex;align-items:center;gap:14px;justify-content:flex-start}
+.meni .dugme span.em{font-size:2rem}
+input[type=text]{font:inherit;font-size:1.2rem;padding:12px 14px;border:3px solid var(--tirk);border-radius:14px;width:100%;background:#fff}
+.pismo{display:flex;gap:8px;justify-content:center;margin-top:12px}
+.pismo button{font:inherit;font-weight:800;padding:8px 16px;border-radius:12px;border:2px solid var(--tirk);background:#fff;color:var(--tirk2);cursor:pointer}
+.pismo button.akt{background:var(--tirk);color:#fff}
+/* test */
+.traka{height:14px;background:#e5efe9;border-radius:9px;overflow:hidden;margin:6px 0 14px}
+.traka i{display:block;height:100%;background:linear-gradient(90deg,var(--tirk),var(--zut));transition:width .3s}
+.gore{display:flex;justify-content:space-between;align-items:center;color:var(--siv);font-weight:800}
+.oblast{display:inline-block;background:#eef8f6;color:var(--tirk2);border-radius:10px;padding:4px 10px;font-size:.9rem}
+.slika{font-size:5.5rem;text-align:center;line-height:1.15;margin:8px 0 4px;letter-spacing:6px}
+.rec{font-size:2.6rem;font-weight:900;text-align:center;margin:4px 0 10px;color:var(--ljub)}
+.pitanje{font-size:1.35rem;font-weight:800;text-align:center;margin:8px 0 16px}
+.trazi{color:var(--narand)}
+.opcije{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+.opcija{font:inherit;font-size:1.35rem;font-weight:800;padding:18px 10px;border-radius:16px;border:3px solid #cfe5e1;background:#fff;cursor:pointer;color:var(--tekst)}
+.opcija:hover{border-color:var(--tirk)}
+.opcija.ok{background:#e3f7e9;border-color:var(--ok)}
+.opcija.lose{background:#fde8e8;border-color:var(--lose)}
+.recenica{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:10px 0 18px}
+.r{font:inherit;font-size:1.5rem;font-weight:800;padding:10px 14px;border-radius:14px;border:3px dashed #cfd8e3;background:#fff;cursor:pointer;color:var(--tekst)}
+.r.izab{background:#fff4d1;border:3px solid var(--zut)}
+.r.ok{background:#e3f7e9;border:3px solid var(--ok)}
+.r.lose{background:#fde8e8;border:3px solid var(--lose)}
+.r.propust{border:3px solid var(--ok);border-style:dashed}
+.povratna{margin-top:16px;padding:14px 16px;border-radius:16px;font-size:1.1rem;display:none}
+.povratna.ok{display:block;background:#e3f7e9;border:2px solid var(--ok)}
+.povratna.lose{display:block;background:#fde8e8;border:2px solid var(--lose)}
+.povratna b{font-size:1.25rem}
+.dole{display:flex;justify-content:space-between;gap:10px;margin-top:16px;flex-wrap:wrap}
+.zvuk{background:none;border:none;font-size:1.8rem;cursor:pointer}
+/* rezultat */
+.ocena{font-size:7rem;font-weight:900;line-height:1;margin:8px 0}
+.o5{color:var(--ok)}.o4{color:#3a9bdc}.o3{color:var(--zut)}.o2{color:var(--narand)}.o1{color:var(--lose)}
+.zvezde{font-size:2.4rem}
+table{width:100%;border-collapse:collapse;margin-top:10px}
+td{padding:8px 6px;border-bottom:1px solid #eee}
+td:last-child{text-align:right;font-weight:900}
+.greska{padding:10px 0;border-bottom:1px dashed #ddd}
+.greska .t{color:var(--ok);font-weight:900}
+.greska .n{color:var(--lose);font-weight:900}
+/* lekcija */
+.pravilo{display:flex;gap:14px;align-items:flex-start;padding:12px 0;border-bottom:1px dashed #ddd}
+.pravilo .em{font-size:2.6rem;min-width:60px;text-align:center}
+.pravilo p{margin:.2em 0}
+.prim{color:var(--ljub);font-weight:900}
+.link{display:block;text-decoration:none;color:inherit;padding:14px;border:2px solid #cfe5e1;border-radius:14px;margin-bottom:10px;background:#fff}
+.link:hover{border-color:var(--tirk)}
+.link b{color:var(--tirk2)}
+.link small{color:var(--siv);display:block;margin-top:4px}
+.istorija{font-size:.95rem;color:var(--siv)}
+@media (max-width:480px){.okvir{padding-left:10px;padding-right:10px}.kartica{padding:16px}.meni{gap:10px}.meni .dugme{font-size:1.08rem;padding:13px 14px}.meni .dugme span.em{font-size:1.6rem}.opcija{font-size:1.2rem;padding:15px 8px}.pitanje{font-size:1.2rem}.dugme{font-size:1.05rem;padding:12px 16px}.slika{font-size:4.2rem}.rec{font-size:2.1rem}.r{font-size:1.25rem;padding:8px 10px}.ocena{font-size:5.5rem}h1{font-size:1.6rem}}
+@media print{.dugme,.pismo{display:none}}
+</style>
+</head>
+<body>
+<div class="okvir" id="app"></div>
+<script src="pitanja.js"></script>
+<script>
+// ── ћирилица / латиница ──
+const CIR="АБВГДЂЕЖЗИЈКЛЉМНЊОПРСТЋУФХЦЧЏШабвгдђежзијклљмнњопрстћуфхцчџш";
+const LAT=["A","B","V","G","D","Đ","E","Ž","Z","I","J","K","L","Lj","M","N","Nj","O","P","R","S","T","Ć","U","F","H","C","Č","Dž","Š","a","b","v","g","d","đ","e","ž","z","i","j","k","l","lj","m","n","nj","o","p","r","s","t","ć","u","f","h","c","č","dž","š"];
+const MAPA={}; [...CIR].forEach((c,i)=>MAPA[c]=LAT[i]);
+let S={ime:"",pismo:"cir"};
+try{S=Object.assign(S,JSON.parse(localStorage.getItem("srpski2")||"{}"))}catch(e){}
+function sacuvaj(){try{localStorage.setItem("srpski2",JSON.stringify(S))}catch(e){}}
+function T(t){ if(S.pismo!=="lat") return t;
+  // велика двословна (ЉУБАВ → LJUBAV) ако је цела реч великим словима
+  return String(t).replace(/[Ѐ-ӿ]+/g,w=>{
+    const sveVelike = w.length>1 && w===w.toUpperCase();
+    const l=[...w].map(c=>MAPA[c]??c).join("");
+    return sveVelike? l.toUpperCase(): l; });
+}
+const $=s=>document.querySelector(s);
+const app=$("#app");
+function esc(t){return String(t).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+const H=t=>esc(T(t));
+
+// ── глас (ако Windows има српски/хрватски глас) ──
+function glas(){ const v=speechSynthesis.getVoices(); return v.find(x=>/^sr/i.test(x.lang))||v.find(x=>/^(hr|bs)/i.test(x.lang)); }
+function izgovori(t){ try{ const g=glas(); if(!g) return; speechSynthesis.cancel(); const u=new SpeechSynthesisUtterance(t); u.voice=g; u.lang=g.lang; u.rate=.9; speechSynthesis.speak(u);}catch(e){} }
+if(window.speechSynthesis) speechSynthesis.onvoiceschanged=()=>{};
+
+function pismoDugmad(){ return `<div class="pismo"><button data-p="cir" class="${S.pismo==="cir"?"akt":""}">Ћирилица</button><button data-p="lat" class="${S.pismo==="lat"?"akt":""}">Latinica</button></div>`; }
+function veziPismo(osvezi){ app.querySelectorAll(".pismo button").forEach(b=>b.onclick=()=>{S.pismo=b.dataset.p;sacuvaj();osvezi();}); }
+
+// ── инсталација на мобилни ──
+let instalPoziv=null;
+const uViberu=/Viber/i.test(navigator.userAgent), iOS=/iPhone|iPad|iPod/i.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
+const instalirana=()=>matchMedia("(display-mode: standalone)").matches||navigator.standalone===true;
+addEventListener("beforeinstallprompt",e=>{e.preventDefault();instalPoziv=e; if($("#bTest")) pocetna();});
+addEventListener("appinstalled",()=>{instalPoziv=null; if($("#bTest")) pocetna();});
+function instalBlok(){
+  if(instalirana()) return "";
+  if(uViberu) return `<div class="instal"><b>📲 ${H("Да би се апликација инсталирала:")}</b><ol>
+    <li>${H("Притисни три тачкице")} <b>⋮</b> ${H("горе десно (или иконицу")} 🌐)</li>
+    <li>${H("Изабери „Отвори у прегледачу“ (Chrome или Safari)")}</li>
+    <li>${H("Тамо притисни дугме „Инсталирај“")}</li></ol></div>`;
+  if(instalPoziv) return `<div class="instal centar"><button class="dugme zut" id="bInstal" style="width:100%">📲 ${H("Инсталирај на телефон")}</button></div>`;
+  if(iOS) return `<div class="instal"><b>📲 ${H("Инсталирај на iPhone:")}</b><ol>
+    <li>${H("Отвори ову страницу у Safari-ју")}</li>
+    <li>${H("Притисни дугме Дели")} <b>⬆️</b> ${H("доле на екрану")}</li>
+    <li>${H("Изабери „Додај на почетни екран“ (Add to Home Screen)")}</li></ol></div>`;
+  if(/Android/i.test(navigator.userAgent)) return `<div class="instal"><b>📲 ${H("Инсталирај на телефон:")}</b><ol>
+    <li>${H("У Chrome-у притисни")} <b>⋮</b> ${H("горе десно")}</li>
+    <li>${H("Изабери „Инсталирај апликацију“ или „Додај на почетни екран“")}</li></ol></div>`;
+  return "";
+}
+function veziInstal(){ const b=$("#bInstal"); if(b) b.onclick=async()=>{ instalPoziv.prompt(); await instalPoziv.userChoice.catch(()=>{}); instalPoziv=null; pocetna(); }; }
+if("serviceWorker" in navigator && location.protocol!=="file:") navigator.serviceWorker.register("sw.js").catch(()=>{});
+
+// ── почетни екран ──
+function pocetna(){
+  const ist=(S.istorija||[]).slice(-5).reverse();
+  app.innerHTML=`<div class="kartica centar">
+    <div class="slika">📘✏️</div>
+    <h1>${H("Српски језик – 2. разред")}</h1>
+    <p>${H("Именице, глаголи, придеви и велико слово")}</p>
+    ${pismoDugmad()}
+    <div style="margin-top:16px;text-align:left"><label><b>${H("Како се зовеш?")}</b></label>
+    <input type="text" id="ime" value="${esc(S.ime)}" placeholder="${H("Упиши своје име")}"></div>
+    <div class="meni">
+      <button class="dugme zut" id="bLek"><span class="em">💡</span>${H("Подсетник – научи правила")}</button>
+      <button class="dugme" id="bTest"><span class="em">📝</span>${H("Тест 1 – 50 питања")}</button>
+      <button class="dugme" id="bTest2"><span class="em">📗</span>${H("Тест 2 – 50 нових питања")}</button>
+      <button class="dugme" id="bTest3"><span class="em">📙</span>${H("Тест 3 – још 50 нових питања")}</button>
+      <button class="dugme" id="bTest4" style="background:var(--narand);box-shadow:0 4px 0 #c4612a"><span class="em">🏆</span>${H("Велики тест – свих 150 питања")}</button>
+      <button class="dugme ljub" id="bNet"><span class="em">🌐</span>${H("Још тестова са интернета")}</button>
+    </div>
+    ${instalBlok()}
+    ${ist.length?`<div class="istorija" style="margin-top:18px;text-align:left"><b>${H("Претходни тестови:")}</b><br>${ist.map(r=>`${esc(r.datum)} – ${esc(T(r.ime||""))}${r.test?" ("+H(r.test)+")":""}: ${r.bodovi}/${r.od} → ${H("оцена")} <b>${r.ocena}</b>`).join("<br>")}</div>`:""}
+  </div>`;
+  veziPismo(pocetna);
+  $("#ime").oninput=e=>{S.ime=e.target.value;sacuvaj();};
+  veziInstal();
+  $("#bLek").onclick=lekcija; $("#bTest").onclick=()=>pocniTest(1); $("#bTest2").onclick=()=>pocniTest(2); $("#bTest3").onclick=()=>pocniTest(3); $("#bTest4").onclick=()=>pocniTest(4); $("#bNet").onclick=internet;
+}
+
+// ── подсетник ──
+function lekcija(){
+  const P=[
+    ["🐶","Заједничке именице","Називи за сва бића, ствари и појаве исте врсте. Пишу се малим словом.","пас, дечак, град, река, књига, сунце"],
+    ["🐕","Властите именице","Имена која припадају само једном бићу или месту. Пишу се ВЕЛИКИМ почетним словом.","Жућко, Лазар, Београд, Дунав, Копаоник, Србија"],
+    ["🏃","Глаголи","Речи које казују шта неко ради, шта се дешава или у каквом је стању.","трчи, пева, спава, црта, пада (киша)"],
+    ["🌈","Придеви","Речи које казују какво је нешто. Питамо: какав? каква? какво?","велики, црвен, сладак, хладан, мирисан"],
+    ["🔠","Велико слово пишемо","На почетку реченице; у именима и презименима људи; у именима животиња; у именима градова, села, држава, река, планина.","Ана Петровић, мачка Мица, Нови Сад, Морава"],
+    ["🔡","Мало слово пишемо","За заједничке именице; за дане у недељи и месеце; за називе језика у реченици.","понедељак, мај, српски језик, дечак"]
+  ];
+  app.innerHTML=`<div class="kartica"><h2>💡 ${H("Подсетник")}</h2>
+    ${P.map(p=>`<div class="pravilo"><div class="em">${p[0]}</div><div><b style="font-size:1.2rem">${H(p[1])}</b><p>${H(p[2])}</p><p class="prim">${H("Пример: ")}${H(p[3])}</p></div></div>`).join("")}
+    ${pismoDugmad()}
+    <div class="dole"><button class="dugme bel" id="nazad">⬅ ${H("Назад")}</button><button class="dugme" id="kTest">📝 ${H("Почни тест")}</button></div></div>`;
+  veziPismo(lekcija); $("#nazad").onclick=pocetna; $("#kTest").onclick=()=>pocniTest(1);
+}
+
+// ── линкови ──
+function internet(){
+  app.innerHTML=`<div class="kartica"><h2>🌐 ${H("Тестови за 2. разред са интернета")}</h2>
+    <p>${H("Пронашли смо ове тестове, листиће и игре. Отварају се у новом прозору.")}</p>
+    ${LINKOVI.map(l=>`<a class="link" href="${esc(l.url)}" target="_blank" rel="noopener"><b>${H(l.naziv)}</b><small>${H(l.opis)}</small></a>`).join("")}
+    ${pismoDugmad()}
+    <div class="dole"><button class="dugme bel" id="nazad">⬅ ${H("Назад")}</button></div></div>`;
+  veziPismo(internet); $("#nazad").onclick=pocetna;
+}
+
+// ── тест ──
+let K=null; // {i, odg:[{tacno, dato}]}
+function mesaj(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a}
+const NAZIV_TESTA={1:"Тест 1",2:"Тест 2",3:"Тест 3",4:"Велики тест"};
+function pocniTest(skup=1){
+  // питања остају по областима, али мешамо редослед унутар сваке области и редослед понуђених одговора
+  const izvor = skup===2? PITANJA2 : skup===3? PITANJA3 : skup===4? PITANJA.concat(PITANJA2,PITANJA3) : PITANJA;
+  const grupe={}; izvor.forEach(p=>(grupe[p.oblast]=grupe[p.oblast]||[]).push(p));
+  const red=[]; Object.values(grupe).forEach(g=>red.push(...mesaj(g)));
+  K={i:0, skup, red:red.map(p=>({p, red:p.opcije?mesaj(p.opcije.map((_,k)=>k)):null})), odg:[]};
+  prikazi();
+}
+function reci(r){return r.split(" ")}
+function prikazi(){
+  const {p,red}=K.red[K.i]; const n=K.red.length;
+  const odgovoreno = K.odg[K.i]!=null;
+  let telo="";
+  if(p.tip==="tapni"){
+    telo=`<div class="pitanje">${H("Додирни ")}<span class="trazi">${H(p.trazi)}</span></div>
+      <div class="recenica">${reci(p.recenica).map((w,k)=>`<button class="r" data-k="${k}">${H(w)}</button>`).join("")}</div>
+      <div class="centar"><button class="dugme" id="provera" disabled>✔ ${H("Провери")}</button></div>`;
+  } else {
+    telo=`${p.rec?`<div class="rec">${H(p.rec)}</div>`:""}
+      <div class="pitanje">${H(p.pitanje)}</div>
+      <div class="opcije">${red.map(k=>`<button class="opcija" data-k="${k}">${H(p.opcije[k])}</button>`).join("")}</div>`;
+  }
+  app.innerHTML=`<div class="kartica">
+    <div class="gore"><span>${H("Питање")} ${K.i+1} / ${n}</span><span class="oblast">${H(p.oblast)}</span><button class="zvuk" id="zvuk" title="${H("Прочитај")}">🔊</button></div>
+    <div class="traka"><i style="width:${(K.i)/n*100}%"></i></div>
+    <div class="slika">${p.slika}</div>
+    ${telo}
+    <div class="povratna" id="pov"></div>
+    <div class="dole"><button class="dugme bel" id="kraj">✖ ${H("Прекини")}</button><button class="dugme zut" id="dalje" style="display:none">${H(K.i+1<n?"Даље ➜":"Види оцену 🏆")}</button></div>
+  </div>`;
+  $("#zvuk").onclick=()=>izgovori(p.tip==="tapni"? "Додирни "+p.trazi.toLowerCase()+". "+p.recenica : (p.rec? p.rec+". ":"")+p.pitanje.replace("___","празно"));
+  $("#kraj").onclick=()=>{ if(confirm(T("Да прекинемо тест?"))) pocetna(); };
+  $("#dalje").onclick=()=>{ K.i++; if(K.i<n) prikazi(); else rezultat(); };
+  if(p.tip==="tapni"){
+    const izab=new Set();
+    app.querySelectorAll(".r").forEach(b=>b.onclick=()=>{
+      if(K.odg[K.i]!=null) return;
+      const k=+b.dataset.k;
+      if(p.jedna){ izab.clear(); app.querySelectorAll(".r").forEach(x=>x.classList.remove("izab")); }
+      if(izab.has(k)){izab.delete(k);b.classList.remove("izab")} else {izab.add(k);b.classList.add("izab")}
+      $("#provera").disabled=!izab.size;
+    });
+    $("#provera").onclick=()=>{
+      const dato=[...izab].sort((a,b)=>a-b);
+      const tac = dato.length===p.tacne.length && dato.every(k=>p.tacne.includes(k));
+      app.querySelectorAll(".r").forEach(b=>{ const k=+b.dataset.k; b.classList.remove("izab");
+        if(p.tacne.includes(k)) b.classList.add(izab.has(k)?"ok":"propust"); else if(izab.has(k)) b.classList.add("lose"); });
+      $("#provera").style.display="none";
+      zavrsi(tac, dato.map(k=>reci(p.recenica)[k]).join(", "), p.tacne.map(k=>reci(p.recenica)[k]).join(", "));
+    };
+  } else {
+    app.querySelectorAll(".opcija").forEach(b=>b.onclick=()=>{
+      if(K.odg[K.i]!=null) return;
+      const k=+b.dataset.k, tac=k===p.tacno;
+      b.classList.add(tac?"ok":"lose");
+      if(!tac) app.querySelector(`.opcija[data-k="${p.tacno}"]`).classList.add("ok");
+      zavrsi(tac, p.opcije[k], p.opcije[p.tacno]);
+    });
+  }
+}
+const POHVALE=["Браво!","Одлично!","Супер!","Тачно!","Свака част!","Сјајно!"];
+function zavrsi(tac, dato, tacno){
+  const {p}=K.red[K.i];
+  K.odg[K.i]={tac, dato, tacno, p};
+  const pov=$("#pov");
+  pov.className="povratna "+(tac?"ok":"lose");
+  pov.innerHTML= tac? `<b>✅ ${H(POHVALE[Math.random()*POHVALE.length|0])}</b><br>${H(p.obj)}`
+                    : `<b>❌ ${H("Није тачно.")}</b> ${H("Тачан одговор:")} <b>${H(tacno.replace(/[.,]/g,""))}</b><br>${H(p.obj)}`;
+  $("#dalje").style.display="";
+  $("#dalje").scrollIntoView({behavior:"smooth",block:"nearest"});
+}
+
+// ── оцена: 90%+ = 5, 80% = 4, 65% = 3, 50% = 2, испод = 1 ──
+function oceni(b,od){const pr=b/od*100; return pr>=90?5:pr>=80?4:pr>=65?3:pr>=50?2:1}
+const OPIS={5:"одличан",4:"врло добар",3:"добар",2:"довољан",1:"недовољан"};
+const PORUKA={5:"Свака част! Сјајно знаш именице, глаголе и придеве! 🌟",4:"Врло добро! Још мало вежбе и биће петица! 💪",3:"Добро је! Погледај подсетник и грешке, па покушај поново. 🙂",2:"Има још да се вежба. Прочитај подсетник и пробај опет! 📚",1:"Не брини – прочитај подсетник заједно са родитељем и покушај поново! 🤗"};
+function rezultat(novi=true){
+  const n=K.red.length, b=K.odg.filter(o=>o&&o.tac).length, oc=oceni(b,n);
+  const obl={}; K.odg.forEach(o=>{const x=obl[o.p.oblast]=obl[o.p.oblast]||[0,0]; x[1]++; if(o.tac)x[0]++;});
+  const greske=K.odg.filter(o=>!o.tac);
+  if(novi){ S.istorija=(S.istorija||[]).concat([{datum:new Date().toLocaleDateString("sr-RS"),ime:S.ime,test:NAZIV_TESTA[K.skup],bodovi:b,od:n,ocena:oc}]).slice(-30); sacuvaj(); }
+  app.innerHTML=`<div class="kartica centar">
+    <div class="slika">${oc>=4?"🏆":oc>=3?"🎉":"📚"}</div>
+    <div class="oblast">${H(NAZIV_TESTA[K.skup])}</div>
+    <h1>${H(S.ime? S.ime+", твоја оцена је:":"Твоја оцена је:")}</h1>
+    <div class="ocena o${oc}">${oc}</div>
+    <div style="font-size:1.4rem;font-weight:900">${H(OPIS[oc])}</div>
+    <div class="zvezde">${"⭐".repeat(oc)}</div>
+    <p style="font-size:1.2rem">${H("Тачних одговора:")} <b>${b} / ${n}</b> (${Math.round(b/n*100)}%)</p>
+    <p style="font-size:1.15rem">${H(PORUKA[oc])}</p>
+  </div>
+  <div class="kartica"><h2>📊 ${H("По областима")}</h2><table>
+    ${Object.entries(obl).map(([k,[t,u]])=>`<tr><td>${H(k)}</td><td>${t} / ${u} ${t===u?"✅":""}</td></tr>`).join("")}
+  </table>
+  <p class="istorija">${H("Скала: 90% и више = 5, 80% = 4, 65% = 3, 50% = 2, испод 50% = 1")}</p></div>
+  ${greske.length?`<div class="kartica"><h2>🔍 ${H("Погледај где си погрешио/ла")}</h2>
+    ${greske.map(o=>`<div class="greska">${o.p.slika} <b>${H(o.p.rec||o.p.recenica||o.p.pitanje)}</b>
+      ${o.p.tip==="tapni"?`<br><small>${H("Тражено: ")}${H(o.p.trazi.toLowerCase())}</small>`:""}
+      <br>${H("Твој одговор:")} <span class="n">${H(o.dato.replace(/[.,]/g,""))}</span> · ${H("Тачно:")} <span class="t">${H(o.tacno.replace(/[.,]/g,""))}</span>
+      <br><small>${H(o.p.obj)}</small></div>`).join("")}</div>`:""}
+  <div class="kartica centar">${pismoDugmad()}<div class="dole" style="justify-content:center">
+    <button class="dugme" id="opet">🔁 ${H("Уради поново")}</button>
+    <button class="dugme zut" id="lek">💡 ${H("Подсетник")}</button>
+    <button class="dugme bel" id="pocetak">🏠 ${H("Почетак")}</button>
+    <button class="dugme bel" id="stampa">🖨️ ${H("Одштампај")}</button></div></div>`;
+  veziPismo(()=>rezultat(false));
+  $("#opet").onclick=()=>pocniTest(K.skup); $("#lek").onclick=lekcija; $("#pocetak").onclick=pocetna; $("#stampa").onclick=()=>print();
+  scrollTo(0,0);
+}
+pocetna();
+</script>
+</body>
+</html>
