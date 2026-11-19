@@ -1,6 +1,6 @@
 // Рад без интернета: апликација се сачува при првом отварању.
 // Прво мрежа (свеже), а кад нема мреже – сачувана копија. При измени питања повећај број верзије.
-const KES = "srpski2-v1";
+const KES = "srpski2-v2";
 const LJUSKA = ["./", "index.html", "pitanja.js", "manifest.json", "ikona-192.png", "ikona-512.png", "apple-touch-icon.png"];
 self.addEventListener("install", e => { self.skipWaiting(); e.waitUntil(caches.open(KES).then(c => c.addAll(LJUSKA)).catch(() => {})); });
 self.addEventListener("activate", e => e.waitUntil(
